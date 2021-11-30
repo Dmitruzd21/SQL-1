@@ -6,7 +6,7 @@ import ru.netology.web.data.DataHelper;
 import java.sql.*;
 
 
-public class SQLMethods {
+public class SQLMethodsWithJavaSql {
 
     @SneakyThrows
     public static void clearAllTables() {
@@ -16,7 +16,7 @@ public class SQLMethods {
         String deleteCard_transactions = "DELETE FROM cards_transactions";
         try (
                 Connection connection = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/sql-project", "dmitry", "uzd21"
+                        "jdbc:mysql://localhost:3306/sql-project", "dmitry", "21uzd"
                 );
                 PreparedStatement preparedStatement1 = connection.prepareStatement(deleteUsers);
                 PreparedStatement preparedStatement2 = connection.prepareStatement(deleteCards);
@@ -32,15 +32,15 @@ public class SQLMethods {
 
     @SneakyThrows
     public static int getVerificationCodeFor() {
-        String dataSQL = "SELECT code FROM auth_codes WHERE user_id = ?;";
+        String dataSQL = "SELECT code FROM auth_codes ORDER BY created DESC LIMIT 1;";
         int code = 0;
         try (
                 Connection connection = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/sql-project", "dmitry", "uzd21"
+                        "jdbc:mysql://localhost:3306/sql-project", "dmitry", "21uzd"
                 );
                 PreparedStatement preparedStatement = connection.prepareStatement(dataSQL);
         ) {
-            preparedStatement.setInt(1, 1);
+            //preparedStatement.setInt(1, 1);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     // выборка значения по индексу столбца (нумерация с 1)

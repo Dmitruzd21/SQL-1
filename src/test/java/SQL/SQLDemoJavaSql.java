@@ -5,14 +5,14 @@ import lombok.SneakyThrows;
 
 import java.sql.*;
 
-public class SQLDemo {
+public class SQLDemoJavaSql {
     @SneakyThrows
     public void setUp() {
         Faker faker = new Faker();
         String dataSQL = "INSERT INTO users(login,password) VALUES (?,?);";
         try (
                 Connection connection = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/sql-project", "dmitry", "uzd21"
+                        "jdbc:mysql://localhost:3306/sql-project", "dmitry", "21uzd"
                 );
                 PreparedStatement preparedStatement = connection.prepareStatement(dataSQL);
         ) {
@@ -29,7 +29,7 @@ public class SQLDemo {
         String cardsSQL = "SELECT id, number,balance_in_kopecs FROM CARDS WHERE user_id =?;";
         try (
                 Connection connection = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/sql-project", "dmitry", "uzd21"
+                        "jdbc:mysql://localhost:3306/sql-project", "dmitry", "21uzd"
                 );
                 Statement countStmt = connection.createStatement();
                 PreparedStatement preparedCardsStmt = connection.prepareStatement(cardsSQL);
