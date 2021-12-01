@@ -1,5 +1,6 @@
 package ru.netology.web.test;
 
+import com.codeborne.selenide.Condition;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DisplayName;
@@ -26,6 +27,20 @@ class AuthenticationTestWithJavaSql {
         var authInfo = DataHelper.getAuthInfo();
         var verificationPage = loginPage.validLogin(authInfo);
         var verificationCode = SQLMethodsWithJavaSql.getVerificationCodeFor();
-        var dashboardPageBefore = verificationPage.validVerify(verificationCode);
+        var dashboardPageBefore = verificationPage.validVerify2(verificationCode);
+    }
+
+
+    @Test
+    @DisplayName("BlockAfterThreeTimesOfInvalidPasswordInput")
+    void shouldBlockAfterThreeTimesOfInvalidPasswordInput(){
+        var loginPage = open("http://localhost:9999", LoginPage.class);
+        var authInfo = DataHelper.getAuthInfo();
+        var otherAuthInfo = DataHelper.getOtherAuthInfo();
+        loginPage.InvalidLogin(authInfo,otherAuthInfo);
+        loginPage.clearAndPutOtherPassword(otherAuthInfo);
+        loginPage.clearAndPutOtherPassword(otherAuthInfo);
+        var blockInfo = loginPage.getBlockOfLoginInfo();
+        blockInfo.shouldBe(Condition.visible);
     }
 }

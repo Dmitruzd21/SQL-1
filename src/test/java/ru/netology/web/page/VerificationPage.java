@@ -13,9 +13,17 @@ public class VerificationPage {
         codeField.shouldBe(visible);
     }
 
-    public DashboardPage validVerify(int verificationCode) {
+    public DashboardPage validVerify(long verificationCode) {
         codeField.setValue(String.valueOf(verificationCode));
         verifyButton.click();
         return new DashboardPage();
     }
+
+    public DashboardPage validVerify2(int verificationCode) {
+        codeField.setValue(String.valueOf(verificationCode));
+        verifyButton.click();
+        return new DashboardPage();
+    }
+
+
 }
