@@ -23,10 +23,10 @@ public class SQLMethodsWithJavaSql {
                 PreparedStatement preparedStatement3 = connection.prepareStatement(deleteAuth_codes);
                 PreparedStatement preparedStatement4 = connection.prepareStatement(deleteCard_transactions);
         ) {
-            preparedStatement1.executeUpdate();
-            preparedStatement2.executeUpdate();
             preparedStatement3.executeUpdate();
-            preparedStatement4.executeUpdate();
+            preparedStatement1.executeUpdate();
+            //preparedStatement2.executeUpdate();
+            //preparedStatement4.executeUpdate();
         }
     }
 

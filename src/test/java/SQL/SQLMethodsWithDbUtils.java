@@ -20,19 +20,18 @@ public class SQLMethodsWithDbUtils {
                         "jdbc:mysql://localhost:3306/sql-project", "dmitry", "21uzd"
                 )
         ) {
-            runner.update(connection, deleteCard_transactions);
-            runner.update(connection, deleteUsers);
             runner.update(connection, deleteAuth_codes);
-            runner.update(connection, deleteCards);
-
+            runner.update(connection, deleteUsers);
+            //runner.update(connection, deleteCard_transactions);
+            //runner.update(connection, deleteCards);
         }
     }
 
     @SneakyThrows
-    public static long getVerificationCodeFor() {
+    public static String getVerificationCodeFor() {
         QueryRunner runner = new QueryRunner();
         String dataSQL = "SELECT code FROM auth_codes ORDER BY created DESC LIMIT 1;";
-        long code = 0;
+        String code = null;
         try (
                 Connection connection = DriverManager.getConnection(
                         "jdbc:mysql://localhost:3306/sql-project", "dmitry", "21uzd"
