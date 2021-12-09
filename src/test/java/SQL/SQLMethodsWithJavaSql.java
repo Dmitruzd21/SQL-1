@@ -13,7 +13,7 @@ public class SQLMethodsWithJavaSql {
         String deleteUsers = "DELETE FROM users";
         String deleteCards = "DELETE FROM cards";
         String deleteAuth_codes = "DELETE FROM auth_codes";
-        String deleteCard_transactions = "DELETE FROM cards_transactions";
+        String deleteCard_transactions = "DELETE FROM card_transactions";
         try (
                 Connection connection = DriverManager.getConnection(
                         "jdbc:mysql://localhost:3306/sql-project", "dmitry", "21uzd"
@@ -24,15 +24,15 @@ public class SQLMethodsWithJavaSql {
                 PreparedStatement preparedStatement4 = connection.prepareStatement(deleteCard_transactions);
         ) {
             preparedStatement3.executeUpdate();
+            preparedStatement4.executeUpdate();
+            preparedStatement2.executeUpdate();
             preparedStatement1.executeUpdate();
-            //preparedStatement2.executeUpdate();
-            //preparedStatement4.executeUpdate();
         }
     }
 
     @SneakyThrows
     public static int getVerificationCodeFor() {
-        String dataSQL = "SELECT code FROM auth_codes ORDER BY created DESC LIMIT 1;";
+        String dataSQL = "SELECT code FROM auth_codes INNER JOIN users ON auth_codes.user_id = users.id" + " WHERE users.login = ? ORDER BY created DESC LIMIT 1";
         int code = 0;
         try (
                 Connection connection = DriverManager.getConnection(
@@ -40,7 +40,7 @@ public class SQLMethodsWithJavaSql {
                 );
                 PreparedStatement preparedStatement = connection.prepareStatement(dataSQL);
         ) {
-            //preparedStatement.setInt(1, 1);
+            preparedStatement.setString(1, DataHelper.getAuthInfo().getLogin());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     // выборка значения по индексу столбца (нумерация с 1)

@@ -1,4 +1,4 @@
-package SQL;
+package NotUsedInProject;
 
 import com.github.javafaker.Faker;
 import lombok.SneakyThrows;
