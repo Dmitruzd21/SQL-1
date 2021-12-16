@@ -15,8 +15,8 @@ import static com.codeborne.selenide.Selenide.open;
 class AuthenticationTestWithJavaSql {
 
     @AfterAll
-   static void shouldClearAllTables (){
-       SQLMethodsWithJavaSql.clearAllTables();
+    static void shouldClearAllTables() {
+        SQLMethodsWithJavaSql.clearAllTables();
     }
 
     @SneakyThrows
@@ -33,11 +33,11 @@ class AuthenticationTestWithJavaSql {
 
     @Test
     @DisplayName("BlockAfterThreeTimesOfInvalidPasswordInput")
-    void shouldBlockAfterThreeTimesOfInvalidPasswordInput(){
+    void shouldBlockAfterThreeTimesOfInvalidPasswordInput() {
         var loginPage = open("http://localhost:9999", LoginPage.class);
         var authInfo = DataHelper.getAuthInfo();
         var otherAuthInfo = DataHelper.getOtherAuthInfo();
-        loginPage.InvalidLogin(authInfo,otherAuthInfo);
+        loginPage.InvalidLogin(authInfo, otherAuthInfo);
         loginPage.clearAndPutOtherPassword(otherAuthInfo);
         loginPage.clearAndPutOtherPassword(otherAuthInfo);
         var blockInfo = loginPage.getBlockOfLoginInfo();

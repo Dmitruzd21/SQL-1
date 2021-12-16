@@ -13,7 +13,7 @@ import static com.codeborne.selenide.Selenide.open;
 public class AuthenticationTestWithDbutils {
 
     @AfterAll
-    static void shouldClearAllTables (){
+    static void shouldClearAllTables() {
         SQLMethodsWithDbUtils.clearAllTables();
     }
 
@@ -29,11 +29,11 @@ public class AuthenticationTestWithDbutils {
 
     @Test
     @DisplayName("BlockAfterThreeTimesOfInvalidPasswordInput")
-    void shouldBlockAfterThreeTimesOfInvalidPasswordInput(){
+    void shouldBlockAfterThreeTimesOfInvalidPasswordInput() {
         var loginPage = open("http://localhost:9999", LoginPage.class);
         var authInfo = DataHelper.getAuthInfo();
         var otherAuthInfo = DataHelper.getOtherAuthInfo();
-        loginPage.InvalidLogin(authInfo,otherAuthInfo);
+        loginPage.InvalidLogin(authInfo, otherAuthInfo);
         loginPage.clearAndPutOtherPassword(otherAuthInfo);
         loginPage.clearAndPutOtherPassword(otherAuthInfo);
         var blockInfo = loginPage.getBlockOfLoginInfo();
